@@ -2,9 +2,9 @@
 $servername = "localhost";
 $username = "data_admin";
 $password = "vitrygtr";
-
+$db = "data";
 // Create connection
-$conn = mysqli_connect($servername, $username, $password);
+$conn = mysqli_connect($servername, $username, $password, $db);
 
 // Check connection
 if (!$conn) {
