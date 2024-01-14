@@ -13,5 +13,6 @@ $requete->execute();
 // Fermer la connexion à la base de données
 $requete->close();
 $conn->close();
+
 ?>
 
