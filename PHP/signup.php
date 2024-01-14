@@ -7,7 +7,7 @@ $mail = $_GET['mail'];
 
 // Préparer et exécuter la requête SQL d'insertion
 $requete = $connexion->prepare("INSERT INTO `data` (`username`, `mdp`,`mail`) VALUES (?, ?, ?)");
-$requete->bind_param("ss", $username, $mdp, $mail);
+$requete->bind_param("sss", $username, $mdp, $mail);
 $requete->execute();
 
 // Fermer la connexion à la base de données
