@@ -1,0 +1,8 @@
+# Utilisez l'image PHP avec Apache comme point de départ
+FROM php:apache
+
+# Installez l'extension MySQLi
+RUN docker-php-ext-install mysqli
+
+# Copiez les fichiers de votre application dans le répertoire de travail du conteneur
+COPY . /var/www/html
