@@ -15,6 +15,9 @@ if (!empty($username) AND !empty($mdp) AND !empty($mail)){
     if ($found==1){
         header('location:'); //METTRE LA PAGE APRES AUTHENTIFICATION DE L'UTILISATEUR
     }
+    else{
+    echo "Des informations ne sont pas correct"; //Peut etre mit sous forme de pop up sur la page HTML
+    }
 }
 else{
     echo "Les champs ne sont pas complet";
