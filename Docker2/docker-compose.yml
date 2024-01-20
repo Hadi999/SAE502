@@ -1,0 +1,54 @@
+version: '3'
+services:
+
+  # Service MySQL
+  mysql:
+    image: mysql:latest
+    container_name: mysql-container
+    environment:
+      MYSQL_ROOT_PASSWORD: vitrygtr
+      MYSQL_DATABASE: data
+      MYSQL_USER: data_admin
+      MYSQL_PASSWORD: vitrygtr
+    ports:
+      - "3306:3306"
+    volumes :
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+
+  # Service PHPMyAdmin
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin:latest
+    container_name: phpmyadmin-container
+    environment:
+      PMA_HOST: mysql
+      PMA_PORT: 3306
+      MYSQL_ROOT_PASSWORD: vitrygtr
+    ports:
+      - "8080:80"
+    depends_on:
+      - mysql
+
+  # Service PHP with Apache
+  php:
+    build:
+      context: .
+      dockerfile: Dockerfilephp
+    container_name: php-container
+    volumes:
+      - ./HTML:/var/www/html
+      - ./php/php.ini:/usr/local/etc/php/php.ini
+    ports:
+      - "8000:80"
+    depends_on:
+      - mysql
+
+  # Service Apache
+  apache:
+    image: httpd:latest
+    container_name: apache-container
+    volumes:
+      - ./HTML:/usr/local/apache2/htdocs/
+    ports:
+      - "8001:80"
+    depends_on:
+      - php
