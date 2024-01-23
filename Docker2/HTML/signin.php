@@ -73,12 +73,12 @@ include("connexion_database.php");
 
 $username = $_GET['username'];
 $mdp = $_GET['password'];
-$mail = $_GET['mail'];
+
 
 //Vérification des données dans la base de données
 if (!empty($username) AND !empty($mdp) AND !empty($mail)){
-    $search=$conn->prepare('SELECT * FROM data WHERE username=? AND mdp=? AND mail=?');
-    $search->execute(array($username, $mdp, $mail));
+    $search=$conn->prepare('SELECT * FROM data WHERE username=? AND mdp=?');
+    $search->execute(array($username, $mdp));
     $found=$search->rowCount();
     //echo $found; 
 
