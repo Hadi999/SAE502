@@ -13,8 +13,8 @@ $mail->Host = "mail.gmx.com"; // use $mail->Host = gethostbyname('smtp.gmail.com
 $mail->Port = 587; // TLS only
 $mail->SMTPSecure = 'tls'; // ssl is depracated
 $mail->SMTPAuth = true;
-$mail->Username = "testvitry@gmx.fr";
-$mail->Password = "vitrycreteil";
+$mail->Username = "";
+$mail->Password = "";
 $mail->setFrom("testvitry@gmx.fr", "Hadi service numerique");
 $mail->addAddress("saadani.elias2003@gmail.com", "test");
 $mail->Subject = "L'harcelement continue!";
