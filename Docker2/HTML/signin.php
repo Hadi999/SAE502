@@ -27,13 +27,13 @@
 <div class="w-100">
 </div>
 </div>
-<form action="index.html#" class="signin-form">
+<form action="" class="signin-form">
 <div class="form-group mt-3">
-<input type="text" class="form-control" required>
+<input type="text" class="form-control" name="username" required>
 <label class="form-control-placeholder" for="username">Username</label>
 </div>
 <div class="form-group">
-<input id="password-field" type="password" class="form-control" required>
+<input id="password-field" type="password" class="form-control" name="password" required>
 <label class="form-control-placeholder" for="password">Password</label>
 <span toggle="#password-field" class="fa fa-fw fa-eye field-icon toggle-password"></span>
 </div>
@@ -70,31 +70,27 @@
 
 <?php
 include("connexion_database.php");
-    
-if ($_SERVER["REQUEST_METHOD"] == "GET" && isset($_GET['submit'])) {
-    $username = isset($_GET['username']) ? $_GET['username'] : '';
-    $mdp = isset($_GET['password']) ? $_GET['password'] : '';
-    
-    
-    //Vérification des données dans la base de données
-    if (!empty($username) AND !empty($mdp) AND !empty($mail)){
-        $search=$conn->prepare('SELECT * FROM data WHERE username=? AND mdp=?');
-        $search->execute(array($username, $mdp));
-        $found=$search->rowCount();
-        //echo $found; 
-    
-        if ($found==1){
-            header('location:Accueil.html'); //METTRE LA PAGE APRES AUTHENTIFICATION DE L'UTILISATEUR
-        }
-        else{
-        echo "Des informations ne sont pas correct"; //Peut etre mit sous forme de pop up sur la page HTML
-        }
+
+$username = $_GET['username'];
+$mdp = $_GET['password'];
+$id = 1;
+
+//Vérification des données dans la base de données
+$sql = "SELECT * FROM data WHERE username=?";
+$stmt = $conn->prepare($sql); 
+$stmt->bind_param("s", $username);
+$stmt->execute();
+$result = $stmt->get_result();
+while ($row = $result->fetch_assoc()) {
+    if ($row['mdp']===$mdp){
+	header("Location: Accueil.html");
     }
     else{
-        echo "Les champs ne sont pas complet";
+	echo "no";
     }
-    $search->close();
-    $found->close();
-    $conn->close();
 }
+
+$sql->close();
+$conn->close();
+
 ?>
