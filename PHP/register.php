@@ -52,7 +52,7 @@ http://votre-site.com/activate.php?code=$activation_code";
     $conn->close();
 }
 
-// Fonction pour valider le mot de passe ( chatgpt me la donner)
+// Fonction pour valider le mot de passe
 function validerMotDePasse($mdp) {
     return preg_match("/^(?=.*[A-Z])(?=.*\d)[A-Za-z\d]{8,}$/", $mdp);
 }
